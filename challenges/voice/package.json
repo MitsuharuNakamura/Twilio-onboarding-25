@@ -1,0 +1,20 @@
+{
+  "name": "voice-challenges",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Voice hands-on challenges",
+  "scripts": {
+    "challenge1": "node challenge1-business-hours.js",
+    "challenge2": "node challenge2-callback-reservation.js",
+    "challenge3": "node challenge3-conference-room.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "twilio": "^4.19.0",
+    "dotenv": "^16.3.1",
+    "body-parser": "^1.20.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

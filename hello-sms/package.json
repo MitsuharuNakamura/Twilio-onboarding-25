@@ -1,0 +1,17 @@
+{
+  "name": "hello-sms",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Twilio SMS sending demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "twilio": "^4.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

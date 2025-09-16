@@ -1,0 +1,23 @@
+{
+  "name": "apps-challenges",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Apps hands-on challenges",
+  "scripts": {
+    "challenge1": "node challenge1-ai-sms-reply.js",
+    "challenge2": "node challenge2-advanced-voicemail.js",
+    "challenge3": "node challenge3-secure-otp.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "twilio": "^4.19.0",
+    "dotenv": "^16.3.1",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.7",
+    "rate-limiter-flexible": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

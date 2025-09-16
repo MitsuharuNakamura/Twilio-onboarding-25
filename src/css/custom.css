@@ -1,0 +1,309 @@
+/**
+ * Custom styles for Twilio Workshop Docs
+ */
+
+:root {
+  --ifm-color-primary: #F22F46;
+  --ifm-color-primary-dark: #e01e35;
+  --ifm-color-primary-darker: #d41930;
+  --ifm-color-primary-darkest: #ae1527;
+  --ifm-color-primary-light: #f44a5d;
+  --ifm-color-primary-lighter: #f55768;
+  --ifm-color-primary-lightest: #f7798a;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #f55768;
+  --ifm-color-primary-dark: #f33c50;
+  --ifm-color-primary-darker: #f22e43;
+  --ifm-color-primary-darkest: #ed0622;
+  --ifm-color-primary-light: #f77280;
+  --ifm-color-primary-lighter: #f8808d;
+  --ifm-color-primary-lightest: #fba9b3;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Custom code block styles */
+.theme-code-block {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 1.5rem 0;
+}
+
+.theme-code-block pre {
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+/* Copy button styling */
+.theme-code-block button[type="button"] {
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+/* Inline code styling */
+code {
+  border-radius: 4px;
+  padding: 0.15rem 0.3rem;
+  background: rgba(127, 127, 127, 0.1);
+}
+
+[data-theme='dark'] code {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Table styling */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+table thead tr {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+[data-theme='dark'] table thead tr {
+  background: var(--ifm-color-primary-darker);
+}
+
+table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='dark'] table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Alert/Admonition styling */
+.alert {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-darker) 100%);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero__subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Button styling */
+.button {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Card components */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar */
+.menu {
+  font-weight: 500;
+}
+
+.menu__link--active {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(180deg, var(--ifm-footer-background-color) 0%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom heading styles */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--ifm-color-primary);
+  padding-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(242, 47, 70, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+[data-theme='dark'] blockquote {
+  background: rgba(245, 87, 104, 0.1);
+}
+
+/* Link styling */
+a {
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* List styling */
+ul, ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin: 0.5rem 0;
+  line-height: 1.7;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+  
+  .hero__subtitle {
+    font-size: 1.2rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: white;
+  background-color: var(--ifm-color-primary);
+  border-radius: 9999px;
+  margin: 0 0.25rem;
+}
+
+/* Progress bar */
+.progress {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--ifm-color-primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
