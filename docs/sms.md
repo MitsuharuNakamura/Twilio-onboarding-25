@@ -42,7 +42,7 @@ TO_PHONE_NUMBER=+81901234567
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -82,7 +82,7 @@ SMSの送信状態を確認する完全なコード:
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -191,7 +191,7 @@ node check-status.js SM1234567890abcdef1234567890abcdef
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
@@ -254,7 +254,7 @@ import twilio from 'twilio';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
@@ -360,7 +360,7 @@ node sms-history.js
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 

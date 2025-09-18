@@ -35,7 +35,7 @@ import express from 'express';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const VoiceResponse = twilio.twiml.VoiceResponse;
@@ -109,7 +109,7 @@ import express from 'express';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const VoiceResponse = twilio.twiml.VoiceResponse;
@@ -230,11 +230,10 @@ import express from 'express';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const VoiceResponse = twilio.twiml.VoiceResponse;
-
 app.use(express.urlencoded({ extended: false }));
 
 // 録音開始
@@ -317,7 +316,7 @@ import express from 'express';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const VoiceResponse = twilio.twiml.VoiceResponse;
@@ -384,7 +383,7 @@ import express from 'express';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const VoiceResponse = twilio.twiml.VoiceResponse;

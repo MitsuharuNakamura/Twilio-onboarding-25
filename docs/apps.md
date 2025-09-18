@@ -37,7 +37,7 @@ import twilio from 'twilio';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -227,7 +227,7 @@ import twilio from 'twilio';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const app = express();
 app.use(express.json());
