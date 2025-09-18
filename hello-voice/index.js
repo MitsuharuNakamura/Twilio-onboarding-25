@@ -29,10 +29,6 @@ app.post('/voice', (req, res) => {
   res.send(twiml.toString());  
 });
 
-// ヘルスチェック用エンドポイント
-app.get('/', (req, res) => {
-  res.send('Twilio Voice Server is running!');
-});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
