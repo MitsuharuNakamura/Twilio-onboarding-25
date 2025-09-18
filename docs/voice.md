@@ -87,7 +87,7 @@ node index.js
 
 ```bash
 # 別のターミナルで実行
-npx ngrok http 3000
+ngrok http 3000
 ```
 
 ### Step 4: Twilioコンソールで設定
