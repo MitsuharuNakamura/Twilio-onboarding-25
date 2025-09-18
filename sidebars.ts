@@ -16,6 +16,11 @@ const sidebars: SidebarsConfig = {
         'apps',
       ],
     },
+    {
+      type: 'doc',
+      id: 'functions',
+      label: 'Functions & Assets',
+    },
   ],
 };
 
