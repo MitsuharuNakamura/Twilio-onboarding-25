@@ -45,7 +45,7 @@ const config: Config = {
       title: 'Twilio Workshop',
       logo: {
         alt: 'Twilio Logo',
-        src: 'img/logo.svg',
+        src: 'img/images.png',
       },
       items: [
         {
