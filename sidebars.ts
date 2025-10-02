@@ -8,6 +8,11 @@ const sidebars: SidebarsConfig = {
       label: 'Home',
     },
     {
+      type: 'doc',
+      id: 'agenda',
+      label: 'Agenda',
+    },
+    {
       type: 'category',
       label: 'ハンズオン',
       items: [
