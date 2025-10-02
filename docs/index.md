@@ -9,6 +9,81 @@ slug: /
 
 このワークショップでは、Twilioの基本機能を実践的に学びます。
 
+**所要時間**: 約2時間30分
+**形式**: ハンズオン形式
+**本日のゴール**: 「Twilioをコードから触って、すぐに応用できる感覚を掴む」
+
+---
+
+## ワークショップ・アジェンダ
+
+### 1. オープニング (10分)
+- 講師自己紹介 & 参加者のスキル確認
+- 環境確認（Node.js、Twilioアカウント）
+
+### 2. Twilioの概要 & ユースケース紹介 (15分)
+- **Twilioとは?**: SMS / Voice / Verify APIの提供
+- **実世界のユースケース**:
+  - 配達・物流: 配達通知、ドライバー連絡
+  - 認証・セキュリティ: SMS/音声でのOTP
+  - カスタマーサポート: IVR、通話録音
+  - マーケティング: 予約リマインダー
+
+### 3. Twilio管理コンソールの説明 (10分)
+- ダッシュボード（Account SID / Auth Token）
+- Phone Numbers（電話番号の取得・Webhook設定）
+- Messaging / Voice ログ
+- Verify API（本人認証）
+
+### 4. 体験1: Hello World SMS (20分)
+**目標**: 自分の携帯にSMSが届く → 成功体験！
+
+```bash
+cd hello-sms
+node index.js
+```
+
+**📚 詳細**: [SMS送信ハンズオン](./sms)
+
+### 5. 体験2: 自動応答電話 (20分)
+**目標**: 自分の携帯が鳴る → 自動音声が流れる体験
+
+```bash
+cd hello-voice
+node index.js
+# 別ターミナルで
+ngrok http 3000
+```
+
+**📚 詳細**: [Voice通話ハンズオン](./voice)
+
+### 6. 休憩 (10分) ☕
+
+### 7. 体験3: 応用ミニアプリ (25分)
+以下の3つから選択して実装:
+
+#### App 1: SMS自動返信システム
+受信SMSのキーワードを判定して自動返信
+
+#### App 2: 留守番電話システム
+着信時にメッセージを録音
+
+#### App 3: OTP認証システム
+6桁のワンタイムパスワードで認証
+
+**📚 詳細**: [ミニアプリ開発](./apps)
+
+### 8. ディスカッション (15分)
+**テーマ**: 「今日の体験を自社に当てはめると?」
+- 自社のどの業務フローにTwilioが活用できるか？
+- 既存システムとの連携方法は？
+
+### 9. クロージング & Q&A (5分)
+- 本日の振り返り
+- 次のステップ（リソース紹介、PoCの始め方）
+
+---
+
 ## このワークショップで学べること
 
 ### 1. SMS送信の基礎
@@ -72,12 +147,26 @@ TWILIO_PHONE_NUMBER=+1234567890
 - ハンズオン課題
 - 応用例とTips
 
-## サポート
+---
 
+## 次のステップ
+
+### リソース
+- 📖 [Twilio公式ドキュメント](https://www.twilio.com/docs)
+- 💻 [サンプルコードGitHub](https://github.com/MitsuharuNakamura/Twilio-onboarding-25)
+- 🎓 [Twilio Quest](https://www.twilio.com/quest) - ゲーム形式の学習プラットフォーム
+
+### PoCの始め方
+1. **無料トライアル**で小さく試す
+2. **検証環境**でプロトタイプ作成
+3. **本番環境**へ移行（番号の追加購入、APIキーの管理）
+
+### サポート
 質問や問題がある場合は:
+- [コミュニティフォーラム](https://support.twilio.com/hc/en-us/community/topics)
 - [GitHub Issues](https://github.com/MitsuharuNakamura/Twilio-onboarding-25/issues)
 - [Twilio公式ドキュメント](https://www.twilio.com/docs)
 
 ---
 
-**さあ、Twilioの世界を探検しましょう！**
+**🎉 さあ、Twilioの世界を探検しましょう！**
