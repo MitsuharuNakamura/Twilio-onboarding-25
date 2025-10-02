@@ -29,6 +29,8 @@ slug: /
   - カスタマーサポート: IVR、通話録音
   - マーケティング: 予約リマインダー
 
+📄 **[Twilio製品紹介資料 (PDF)](/pdf/2025%20-%20Twilio%20all%20products%20material.pdf)**
+
 ### 3. Twilio管理コンソールの説明 (10分)
 - ダッシュボード（Account SID / Auth Token）
 - Phone Numbers（電話番号の取得・Webhook設定）
