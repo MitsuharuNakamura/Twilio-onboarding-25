@@ -10,7 +10,7 @@ const client = twilio(accountSid, authToken);
 async function sendSMS() {
   try {
     const message = await client.messages.create({
-      body: 'Hello from Twilio Workshop 2025!',
+      body: 'こんにちは。Twilio ワークショップです。',
       from: process.env.TWILIO_PHONE_NUMBER,
       to: process.env.TO_PHONE_NUMBER
     });

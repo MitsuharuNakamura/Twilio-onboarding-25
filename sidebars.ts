@@ -11,6 +11,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'ハンズオン',
       items: [
+        'sendgrid',
         'sms',
         'voice',
         'apps',
