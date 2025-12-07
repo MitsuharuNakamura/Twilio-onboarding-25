@@ -292,15 +292,48 @@ npx ngrok http 3004
 
 #### IP Warm-up（ウォームアップ）
 
-新しい IP アドレスでいきなり大量送信すると、スパム扱いされます。
+新しい専用 IP アドレスでいきなり大量送信すると、スパム扱いされます。ISP に信頼されるまで、段階的に送信量を増やす必要があります。
+
+:::tip 専用IPが必要なケース
+専用 IP は **月間 50,000 通以上** 送信する場合に推奨されます。Free / Essentials プランは共有 IP プールを使用するため、Warmup は不要です。
+:::
+
+**SendGrid 推奨: 自動 IP Warmup スケジュール（41日間）**
+
+| フェーズ | 期間 | 1時間あたりの上限 | 目安（1日8時間稼働） |
+|---------|------|------------------|---------------------|
+| 初期 | Day 0-7 | 20 → 211 通/時 | 160 → 1,700 通/日 |
+| 成長期 | Day 8-14 | 222 → 2,222 通/時 | 1,800 → 18,000 通/日 |
+| 拡大期 | Day 15-21 | 2,340 → 23,427 通/時 | 19,000 → 187,000 通/日 |
+| 安定期 | Day 22-28 | 24,682 → 246,953 通/時 | 197,000 → 2M 通/日 |
+| 最終期 | Day 29-41 | 260,322 → 19.6M 通/時 | 制限なしへ移行 |
+
+**手動 Warmup の場合（シンプル版）**
+
+初日 50 通から開始し、**毎日 2 倍**に増やしていきます:
 
 ```
-Week 1: 50通/日
-Week 2: 100通/日
-Week 3: 500通/日
-Week 4: 2,000通/日
-...徐々に増加
+Day 1:    50 通
+Day 2:   100 通
+Day 3:   200 通
+Day 4:   400 通
+Day 5:   800 通
+Day 6: 1,600 通
+Day 7: 3,200 通
+...
 ```
+
+**Warmup 成功のポイント**
+
+1. **エンゲージメントの高いユーザーから送信** - 開封率・クリック率が高いセグメントを優先
+2. **バウンス率を 2% 以下に維持** - 古いリストは事前にクリーニング
+3. **苦情率を 0.1% 以下に維持** - スパム報告が増えたら送信を一時停止
+4. **パフォーマンス低下時は減速** - 開封率低下やブロック増加時は送信量を減らす
+5. **一貫した送信パターン** - 毎日同じ時間帯に送信し、ISP に予測可能なパターンを示す
+
+:::warning 注意
+Warmup 期間中にパフォーマンスが悪化（開封率低下、ブロック増加）した場合は、焦らず送信量を減らして様子を見てください。レピュテーションの回復には時間がかかります。
+:::
 
 #### レート制御
 
@@ -372,6 +405,8 @@ node webhook-server.js
 - [Node.js SDK](https://github.com/sendgrid/sendgrid-nodejs)
 - [Dynamic Templates ガイド](https://docs.sendgrid.com/ui/sending-email/how-to-send-an-email-with-dynamic-templates)
 - [Event Webhook リファレンス](https://docs.sendgrid.com/for-developers/tracking-events/event)
+- [IP Warmup ガイド](https://www.twilio.com/docs/sendgrid/ui/sending-email/warming-up-an-ip-address)
+- [IP Warmup スケジュール（PDF）](https://docs-resources.prod.twilio.com/documents/Generic_IP_Warmup_Schedule.pdf)
 
 ---
 
