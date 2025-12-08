@@ -356,12 +356,73 @@ After:  https://link.yourdomain.com/ls/click?...
 
 #### Inbound Parse
 
-受信メールを Webhook で転送。
+受信メールを解析して Webhook で転送する機能。メールをトリガーにしたアプリケーション開発が可能になります。
+
+**設定手順**:
+
+1. **Settings** → **Inbound Parse** → **Add Host & URL**
+2. 受信用のサブドメインを設定（例: `parse.yourdomain.com`）
+3. DNS に MX レコードを追加:
+   ```
+   MX parse.yourdomain.com → mx.sendgrid.net (優先度: 10)
+   ```
+4. Webhook URL を設定（POST リクエストを受け取るエンドポイント）
+
+**受信データの例**:
+
+```json
+{
+  "from": "sender@example.com",
+  "to": "support@parse.yourdomain.com",
+  "subject": "お問い合わせ",
+  "text": "本文のテキスト",
+  "html": "<p>本文のHTML</p>",
+  "attachments": 2,
+  "attachment1": "(ファイルデータ)",
+  "headers": "...",
+  "envelope": "{\"to\":[\"support@parse.yourdomain.com\"],\"from\":\"sender@example.com\"}"
+}
+```
 
 **ユースケース**:
-- サポートメールの自動処理
-- メールからのデータ抽出
-- 自動返信システム
+
+| ユースケース | 説明 |
+|-------------|------|
+| **サポートチケット自動作成** | 受信メールから自動でチケットを生成 |
+| **メール→Slack 連携** | 特定アドレスへのメールを Slack に転送 |
+| **データ抽出** | 注文確認メールから情報を抽出して DB に保存 |
+| **自動返信** | 問い合わせに対して自動で確認メールを送信 |
+| **添付ファイル処理** | 添付ファイルを自動で S3 等に保存 |
+
+**Webhook 受信サーバーの例**:
+
+```javascript
+import express from 'express';
+import multer from 'multer';
+
+const app = express();
+const upload = multer();
+
+app.post('/parse', upload.any(), (req, res) => {
+  console.log('From:', req.body.from);
+  console.log('To:', req.body.to);
+  console.log('Subject:', req.body.subject);
+  console.log('Text:', req.body.text);
+
+  // 添付ファイルの処理
+  if (req.files) {
+    req.files.forEach(file => {
+      console.log('Attachment:', file.originalname);
+    });
+  }
+
+  res.status(200).send('OK');
+});
+```
+
+:::tip
+Inbound Parse は **受信専用のサブドメイン** を使用することを推奨します。メインドメインの MX レコードを変更すると、通常のメール受信に影響が出ます。
+:::
 
 ---
 
@@ -394,24 +455,83 @@ After:  https://link.yourdomain.com/ls/click?...
 
 ### Tracking
 
-#### Click Tracking Settings
+メールの開封・クリックを追跡する機能。マーケティング効果の測定に必須です。
 
-クリック追跡の詳細設定。
+#### Click Tracking
 
-#### Open Tracking Settings
+メール内のリンクを SendGrid のトラッキング URL に書き換えてクリックを計測。
 
-開封追跡の詳細設定。
+**仕組み**:
+```
+元のリンク: https://yoursite.com/campaign
+　　↓
+追跡リンク: https://u1234.ct.sendgrid.net/ls/click?...
+　　↓
+クリック時: SendGrid で記録 → 元の URL にリダイレクト
+```
 
-#### Google Analytics
+**設定オプション**:
 
-GA 連携でメール経由のトラフィックを分析。
+| 設定 | 説明 |
+|------|------|
+| **Enable** | 全リンクを追跡 |
+| **Enable (HTML only)** | HTML メールのみ追跡 |
+| **Disable** | 追跡しない |
+
+:::caution 注意
+セキュリティ上、一部の企業ではトラッキング URL がブロックされることがあります。Link Branding を設定して自社ドメインの URL にすることで回避できます。
+:::
+
+#### Open Tracking
+
+透明な 1x1 ピクセル画像をメールに埋め込んで開封を検知。
+
+**仕組み**:
+```html
+<!-- メール末尾に自動挿入 -->
+<img src="https://u1234.sendgrid.net/wf/open?..." width="1" height="1">
+```
+
+**制限事項**:
+- 画像ブロック環境では検知不可
+- テキストメールでは動作しない
+- Apple Mail のプライバシー保護機能で不正確になる場合あり
+
+#### Subscription Tracking
+
+配信停止リンクを自動挿入。
+
+**挿入されるリンク例**:
+```html
+<a href="https://u1234.sendgrid.net/wf/unsubscribe?...">
+  配信停止はこちら
+</a>
+```
+
+**カスタマイズ項目**:
+- 配信停止後のランディングページ URL
+- リンクのテキスト（HTML / Plain Text）
+- 置換タグ（`[unsubscribe]` など）
+
+#### Google Analytics 連携
+
+メール内のリンクに UTM パラメータを自動付与。
 
 **設定項目**:
-- `utm_source`: sendgrid
-- `utm_medium`: email
-- `utm_campaign`: キャンペーン名
-- `utm_term`: キーワード
-- `utm_content`: コンテンツ識別子
+
+| パラメータ | 説明 | 例 |
+|-----------|------|-----|
+| `utm_source` | 流入元 | `sendgrid` |
+| `utm_medium` | メディア種別 | `email` |
+| `utm_campaign` | キャンペーン名 | `summer_sale_2025` |
+| `utm_term` | キーワード | `discount` |
+| `utm_content` | コンテンツ識別 | `header_banner` |
+
+**結果**:
+```
+元: https://yoursite.com/sale
+後: https://yoursite.com/sale?utm_source=sendgrid&utm_medium=email&utm_campaign=summer_sale_2025
+```
 
 ---
 
@@ -419,25 +539,135 @@ GA 連携でメール経由のトラフィックを分析。
 
 #### Teammates
 
-チームメンバーのアクセス管理。
+チームメンバーを招待してアカウントへのアクセスを共有する機能。役割に応じた権限設定が可能です。
 
-**ロール**:
+**招待手順**:
 
-| ロール | 権限 |
-|--------|------|
-| **Admin** | 全機能へのフルアクセス |
-| **Developer** | API Keys, Templates, Stats |
-| **Marketer** | Marketing Campaigns, Stats |
-| **Read-only** | 閲覧のみ |
+1. **Settings** → **Teammates** → **Add Teammate**
+2. メールアドレスを入力
+3. 権限（ロール）を選択
+4. 招待メールが送信される
+5. 招待された人がリンクをクリックしてアカウント作成
+
+**プリセットロール**:
+
+| ロール | 説明 | 主な権限 |
+|--------|------|---------|
+| **Admin** | 管理者 | 全機能へのフルアクセス、Teammate 管理 |
+| **Developer** | 開発者 | API Keys, Templates, Stats, Suppressions |
+| **Marketer** | マーケター | Marketing Campaigns, Contacts, Stats |
+| **Read-only** | 閲覧者 | 全機能の閲覧のみ（変更不可） |
+
+**カスタム権限**:
+
+プリセットロール以外にも、細かく権限を設定できます。
+
+| カテゴリ | 権限項目 |
+|---------|---------|
+| **Email Activity** | 閲覧 / ダウンロード |
+| **Stats** | 閲覧 |
+| **Suppressions** | 閲覧 / 編集 / 削除 |
+| **Templates** | 閲覧 / 作成 / 編集 / 削除 |
+| **Marketing** | キャンペーン管理 / コンタクト管理 |
+| **Settings** | API Keys / Sender Auth / Webhooks |
+| **Teammates** | 招待 / 編集 / 削除 |
+
+**ベストプラクティス**:
+
+```
+✅ 最小権限の原則 - 必要な権限のみ付与
+✅ 役割ごとにロールを分ける
+✅ 退職者のアカウントは即座に削除
+✅ 定期的に権限を見直し
+```
+
+---
+
+#### Subusers
+
+親アカウントの下に独立したサブアカウントを作成する機能。マルチテナント環境や部門別管理に最適です。
+
+:::info Pro プラン以上で利用可能
+Subusers 機能は **Pro プラン以上** で利用できます。
+:::
+
+**Teammates vs Subusers の違い**:
+
+| 項目 | Teammates | Subusers |
+|------|-----------|----------|
+| **用途** | チーム内の権限分け | 独立した環境の分離 |
+| **ログイン** | 親アカウントに招待 | 専用のログイン情報 |
+| **API Key** | 親アカウントと共有 | 独自の API Key |
+| **統計** | 親アカウントに統合 | 個別に分離 |
+| **IP アドレス** | 共有 | 個別に割り当て可能 |
+| **課金** | 親アカウント | 親アカウント |
+| **テンプレート** | 共有 | 個別 |
+
+**ユースケース**:
+
+| ユースケース | 説明 |
+|-------------|------|
+| **SaaS 事業者** | 顧客ごとに Subuser を作成し、メール配信を分離 |
+| **代理店** | クライアントごとに独立した環境を提供 |
+| **大企業** | 部門・事業部ごとに分離して管理 |
+| **開発環境分離** | 本番 / ステージング / 開発を分離 |
+
+**Subuser 作成手順**:
+
+1. **Settings** → **Subuser Management** → **Create New Subuser**
+2. ユーザー名、メールアドレス、パスワードを設定
+3. IP アドレスを割り当て（共有または専用）
+4. 送信制限（オプション）を設定
+
+**API での Subuser 管理**:
+
+```javascript
+// Subuser の作成
+const response = await client.request({
+  method: 'POST',
+  url: '/v3/subusers',
+  body: {
+    username: 'marketing-team',
+    email: 'marketing@yourcompany.com',
+    password: 'securepassword123',
+    ips: ['192.168.1.1']
+  }
+});
+
+// Subuser の一覧取得
+const subusers = await client.request({
+  method: 'GET',
+  url: '/v3/subusers'
+});
+```
+
+**Subuser の統計確認**:
+
+親アカウントから各 Subuser の統計を確認できます。
+
+```
+Stats → Subuser Comparison
+  └─ marketing-team: 10,000 delivered, 25% open rate
+  └─ sales-team: 5,000 delivered, 30% open rate
+  └─ support: 2,000 delivered, 45% open rate
+```
 
 ---
 
 #### Two-Factor Authentication
 
-2段階認証の設定。
+2段階認証の設定。SMS またはアプリ（Google Authenticator 等）で認証。
 
-:::tip セキュリティ強化
-本番環境では **必ず** 2FA を有効にしてください。
+**設定手順**:
+
+1. **Settings** → **Two-Factor Authentication**
+2. 認証方法を選択:
+   - **SMS**: 電話番号に認証コードを送信
+   - **App**: TOTP アプリでコードを生成
+3. バックアップコードを保存（リカバリー用）
+
+:::warning 必須設定
+本番環境では **必ず** 2FA を有効にしてください。API Key の漏洩だけでなく、アカウント乗っ取りも防げます。
 :::
 
 ---
@@ -511,13 +741,17 @@ API アクセスを特定の IP からのみ許可。
 
 ## まとめ
 
-SendGrid コンソールで最も重要な機能:
+SendGrid コンソールの主要機能:
 
-1. **API Keys** - セキュアな認証情報管理
-2. **Dynamic Templates** - 再利用可能なテンプレート
-3. **Activity Feed** - 配信状況のリアルタイム確認
-4. **Suppressions** - 配信停止アドレスの管理
-5. **Sender Authentication** - 到達率向上の基盤
+| カテゴリ | 機能 | 用途 |
+|---------|------|------|
+| **認証・セキュリティ** | API Keys, 2FA, Sender Auth | セキュアな環境構築 |
+| **テンプレート** | Dynamic Templates | 再利用可能なメール作成 |
+| **モニタリング** | Activity Feed, Stats | 配信状況の確認 |
+| **配信管理** | Suppressions, Tracking | 到達率の最適化 |
+| **チーム管理** | Teammates, Subusers | 権限・環境の分離 |
+| **受信処理** | Inbound Parse | メールトリガーのアプリ開発 |
+| **インフラ** | IP Management | 専用 IP の管理 |
 
 ---
 
