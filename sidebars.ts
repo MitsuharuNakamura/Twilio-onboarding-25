@@ -9,6 +9,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: '座学',
+      items: [
+        'sendgrid-intro',
+        'sendgrid-console',
+      ],
+    },
+    {
+      type: 'category',
       label: 'ハンズオン',
       items: [
         'sendgrid',

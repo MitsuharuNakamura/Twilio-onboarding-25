@@ -21,7 +21,31 @@ slug: /
 - 講師自己紹介 & 参加者のスキル確認
 - 環境確認（Node.js、Twilioアカウント）
 
-### 2. Twilioの概要 & ユースケース紹介 (15分)
+### 2. 座学: SendGrid の仕組みを理解する (15分)
+
+SendGrid の製品概要とメール配信の基本を学びます。
+
+- **なぜメール配信は難しいのか？** - SMTPの課題
+- **到達性を決める要素** - SPF / DKIM / レピュテーション
+- **SendGrid の主要製品** - Email API, Marketing Campaigns, Email Validation
+- **日本向け特有の注意点** - キャリアメール、特定電子メール法
+
+**📚 詳細**: [SendGrid 製品紹介](./sendgrid-intro)
+
+### 3. 座学: SendGrid コンソールの説明 (10分)
+
+SendGrid 管理コンソールの各メニューを解説します。
+
+- **Dashboard** - 配信状況の全体像
+- **API Keys** - 認証情報の管理
+- **Dynamic Templates** - テンプレートの作成
+- **Activity Feed** - 送信履歴の確認
+- **Sender Authentication** - ドメイン認証
+- **Settings** - Event Webhook, Tracking設定
+
+**📚 詳細**: [SendGrid コンソールガイド](./sendgrid-console)
+
+### 4. 座学: Twilio の概要 & ユースケース紹介 (10分)
 - **Twilioとは?**: SMS / Voice / Verify APIの提供
 - **実世界のユースケース**:
   - 配達・物流: 配達通知、ドライバー連絡
@@ -31,13 +55,17 @@ slug: /
 
 📄 **[Twilio製品紹介資料 (PDF)](/pdf/2025%20-%20Twilio%20all%20products%20material.pdf)**
 
-### 3. Twilio管理コンソールの説明 (10分)
+### 5. 座学: Twilio 管理コンソールの説明 (5分)
 - ダッシュボード（Account SID / Auth Token）
 - Phone Numbers（電話番号の取得・Webhook設定）
 - Messaging / Voice ログ
 - Verify API（本人認証）
 
-### 4. 体験1: SendGrid メール送信 (20分)
+---
+
+## ハンズオン
+
+### 6. 体験1: SendGrid メール送信 (20分)
 **目標**: API でメールを送信する成功体験！
 
 ```bash
@@ -47,7 +75,7 @@ node index.js
 
 **📚 詳細**: [SendGrid メール送信ハンズオン](./sendgrid)
 
-### 5. 体験2: Hello World SMS (20分)
+### 7. 体験2: Hello World SMS (20分)
 **目標**: 自分の携帯にSMSが届く → 成功体験！
 
 ```bash
@@ -57,7 +85,7 @@ node index.js
 
 **📚 詳細**: [SMS送信ハンズオン](./sms)
 
-### 6. 体験3: 自動応答電話 (20分)
+### 8. 体験3: 自動応答電話 (20分)
 **目標**: 自分の携帯が鳴る → 自動音声が流れる体験
 
 ```bash
@@ -69,9 +97,9 @@ ngrok http 3000
 
 **📚 詳細**: [Voice通話ハンズオン](./voice)
 
-### 7. 休憩 (10分) ☕
+### 9. 休憩 (10分) ☕
 
-### 8. 体験4: 応用ミニアプリ (25分)
+### 10. 体験4: 応用ミニアプリ (25分)
 以下の3つから選択して実装:
 
 #### App 1: [SMS自動返信システム](./apps#app-1-sms自動返信システム)
@@ -85,12 +113,12 @@ ngrok http 3000
 
 **📚 詳細**: [ミニアプリ開発](./apps)
 
-### 9. ディスカッション (15分)
+### 11. ディスカッション (15分)
 **テーマ**: 「今日の体験を自社に当てはめると?」
 - 自社のどの業務フローにTwilioが活用できるか？
 - 既存システムとの連携方法は？
 
-### 10. クロージング & Q&A (5分)
+### 12. クロージング & Q&A (5分)
 - 本日の振り返り
 - 次のステップ（リソース紹介、PoCの始め方）
 
